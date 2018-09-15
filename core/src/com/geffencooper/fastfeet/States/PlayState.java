@@ -21,14 +21,14 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm) {
         super(gsm);
         runner = new Runner((FastFeet.WIDTH / 2) - (50), (FastFeet.HEIGHT / 2)+ 50);
-        cam.setToOrtho(false, FastFeet.WIDTH , FastFeet.HEIGHT);
+        cam.setToOrtho(false, FastFeet.WIDTH*2 , FastFeet.HEIGHT*2);
         background = new Texture("background.png");
         //spike = new Spike(FastFeet.HEIGHT / 2);
         spikes = new Array<Spike>();
         rand = new Random();
         for(int i = 1; i <= SPIKE_COUNT; i++)
         {
-            spikes.add(new Spike(i * (SPIKE_SPACING + Spike.SPIKE_WIDTH) +400));
+            spikes.add(new Spike(i * (SPIKE_SPACING + Spike.SPIKE_WIDTH+200) +800));
         }
     }
 
@@ -67,7 +67,7 @@ public class PlayState extends State {
                 //System.out.print("cam position: " + (cam.position.x - (cam.viewportWidth / 2)));
                 //System.out.println("spike position: " + (spike.getSpikePos().x + spike.getSpike().getWidth()));
                 //System.out.println(rand.nextInt(100));
-                System.out.println(i);
+                //System.out.println(i);
                 spikes.get(i).reposition(spikes.get(prior(i)).getSpikePos().x + 200+rand.nextInt(200)/*((Spike.SPIKE_WIDTH + SPIKE_SPACING )) * SPIKE_COUNT +400*/);
             }
 

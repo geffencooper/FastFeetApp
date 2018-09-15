@@ -14,6 +14,7 @@ public class MenuState extends State
         super(gsm);
         background = new Texture("background.png");
         playButton = new Texture("playButton.png");
+        //cam.setToOrtho(false, FastFeet.WIDTH*2 , FastFeet.HEIGHT*2);
     }
 
     @Override
