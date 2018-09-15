@@ -23,7 +23,7 @@ public class Spike
         spike = new Texture("spike.png");
         rand = new Random();
 
-        spikePos = new Vector2(x,(FastFeet.HEIGHT / 2)-5);
+        spikePos = new Vector2(x,(FastFeet.HEIGHT ));
 
         bounds = new Rectangle(spikePos.x, spikePos.y, spike.getWidth(), spike.getHeight());
     }
@@ -38,7 +38,7 @@ public class Spike
 
     public void reposition(float x)
     {
-        spikePos.set(x, FastFeet.HEIGHT / 2);
+        spikePos.set(x, FastFeet.HEIGHT );
         bounds.setPosition(spikePos.x, spikePos.y);
     }
 

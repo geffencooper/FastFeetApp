@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.geffencooper.fastfeet.FastFeet;
 
 public class Runner {
-    private static final int GRAVITY = -15;
-    private static final int MOVEMENT = 800;
+    private /*static final*/ int GRAVITY = -15;
+    private /*static final*/ int MOVEMENT = 200;
     private static final int NUMRUNSTATES = 4;
     private int currentRunState;
     private Vector3 position;
@@ -28,7 +28,7 @@ public class Runner {
     public Runner(int x, int y)
     {
         currentRunState = 0;
-        position = new Vector3(x, y, 0);
+        position = new Vector3(x, 2*y, 0);
         velocity = new Vector3(0,0,0);
         runnerPos1 = new Texture("runnerPos1.png");
         runnerPos2 = new Texture("runnerPos2.png");
@@ -37,16 +37,16 @@ public class Runner {
         runStates = new Texture[]{runnerPos1, runnerPos2, runnerPos3, runnerPos4};
         //Texture texture = new Texture("runnerAnim.png");
        // runnerAnimation = new Animation(new TextureRegion(texture), 4, 0.05f);
-        bounds1 = new Rectangle(x,y, 46, 126);
-        bounds2 = new Rectangle(x,y, 59, 126);
-        bounds3 = new Rectangle(x,y, 68, 126);
-        bounds4 = new Rectangle(x,y, 55, 126);
+        bounds1 = new Rectangle(x,y, /*46*/50, 126);
+        bounds2 = new Rectangle(x,y, /*59*/50, 126);
+        bounds3 = new Rectangle(x,y, /*68*/50, 126);
+        bounds4 = new Rectangle(x,y, /*55*/50, 126);
 
     }
 
     public int getRunState()
     {
-        System.out.println(currentRunState);
+        //System.out.println(currentRunState);
         if(currentRunState < 3)
         {
             currentRunState++;
@@ -72,16 +72,16 @@ public class Runner {
     {
         //getRunState();
         //so velocity goes down by 15 every dt which is most likely at least 20 times per second so every second in the air is -300
-        if(position.y > FastFeet.HEIGHT / 2)
+        if(position.y > FastFeet.HEIGHT )
         {
             velocity.add(0, GRAVITY, 0);
         }
         velocity.scl(dt);
         position.add(MOVEMENT * dt, velocity.y,0);
         //also the image is only rendered after this phase so even if the position is less than 240, it updates before rendering
-        if(position.y < FastFeet.HEIGHT / 2)
+        if(position.y < FastFeet.HEIGHT )
         {
-            position.y = FastFeet.HEIGHT / 2;
+            position.y = FastFeet.HEIGHT ;
         }
         velocity.scl(1/dt);
         bounds1.setPosition(position.x, position.y);
@@ -118,6 +118,12 @@ public class Runner {
                 return bounds1;
             }
         }
+    }
+    public void stop()
+    {
+        MOVEMENT = 0;
+        GRAVITY = 0;
+        velocity.y = 0;
     }
 
     public void dispose()

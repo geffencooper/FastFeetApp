@@ -1,13 +1,16 @@
 package com.geffencooper.fastfeet.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.geffencooper.fastfeet.FastFeet;
 import com.geffencooper.fastfeet.sprites.Runner;
 import com.geffencooper.fastfeet.sprites.Spike;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class PlayState extends State {
@@ -17,10 +20,10 @@ public class PlayState extends State {
     private Runner runner;
     private Texture background;
     private Array<Spike> spikes;
-
+    private ShapeRenderer sr;
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        runner = new Runner((FastFeet.WIDTH / 2) - (50), (FastFeet.HEIGHT / 2)+ 50);
+        runner = new Runner((FastFeet.WIDTH / 2), (FastFeet.HEIGHT / 2));
         cam.setToOrtho(false, FastFeet.WIDTH*2 , FastFeet.HEIGHT*2);
         background = new Texture("background.png");
         //spike = new Spike(FastFeet.HEIGHT / 2);
@@ -30,6 +33,8 @@ public class PlayState extends State {
         {
             spikes.add(new Spike(i * (SPIKE_SPACING + Spike.SPIKE_WIDTH+200) +800));
         }
+        sr = new ShapeRenderer();
+
     }
 
     @Override
@@ -73,7 +78,14 @@ public class PlayState extends State {
 
             if(spikes.get(i).collides(runner.getBounds()))
             {
-                gsm.set(new PlayState(gsm));
+                runner.stop();
+                System.out.println("spike x:" + spikes.get(i).getSpikePos().x + " spike y: " + spikes.get(i).getSpikePos().y);
+                System.out.println("runner x: " + runner.getPosition().x + " runner y: " + runner.getPosition().y);
+                System.out.println("spike height: " + spikes.get(i).getSpike().getHeight());
+                if(Gdx.input.justTouched())
+                {
+                    gsm.set(new PlayState(gsm));
+                }
             }
         }
 
@@ -84,7 +96,7 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background, cam.position.x - (cam.viewportWidth / 2), -20);
+        sb.draw(background, cam.position.x - (cam.viewportWidth / 2), 0, FastFeet.WIDTH*2, FastFeet.HEIGHT*2);
         sb.draw(runner.getRunner(), runner.getPosition().x, runner.getPosition().y);
         for(Spike spike : spikes)
         {
@@ -92,6 +104,14 @@ public class PlayState extends State {
         }
        // sb.draw(spike.getSpike(), spike.getSpikePos().x, spike.getSpikePos().y-5);
         sb.end();
+        sr.setProjectionMatrix(cam.combined);
+
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.RED);
+        System.out.println("Position y: " + runner.getBounds().y);
+        sr.rect(runner.getBounds().x, runner.getBounds().y, 50, 126);
+        sr.rect(spikes.get(0).getSpikePos().x, spikes.get(0).getSpikePos().y, 50, 50);
+        sr.end();
     }
 
     @Override
