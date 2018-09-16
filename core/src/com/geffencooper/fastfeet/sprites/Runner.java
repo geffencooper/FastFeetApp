@@ -1,6 +1,7 @@
 package com.geffencooper.fastfeet.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.geffencooper.fastfeet.FastFeet;
 
 public class Runner {
+    private Sound jumping;
     private /*static final*/ int GRAVITY = -85;
     private /*static final*/ int MOVEMENT = 800;
     private static final int NUMRUNSTATES = 4;
@@ -27,6 +29,7 @@ public class Runner {
 
     public Runner(int x, int y)
     {
+        jumping = Gdx.audio.newSound(Gdx.files.internal("jumpingSound.mp3"));
         currentRunState = 0;
         position = new Vector3(x, 2*y, 0);
         velocity = new Vector3(0,0,0);
@@ -93,6 +96,7 @@ public class Runner {
     public void jump()
     {
         velocity.y = 1000;
+        jumping.play(0.1f);
     }
 
     public Rectangle getBounds()
@@ -132,5 +136,6 @@ public class Runner {
         runnerPos2.dispose();
         runnerPos3.dispose();
         runnerPos4.dispose();
+        jumping.dispose();
     }
 }

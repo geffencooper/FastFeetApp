@@ -12,6 +12,7 @@ public class MenuState extends State
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
+        cam.setToOrtho(false, FastFeet.WIDTH*2 , FastFeet.HEIGHT*2);
         background = new Texture("background.png");
         playButton = new Texture("playButton.png");
         //cam.setToOrtho(false, FastFeet.WIDTH*2 , FastFeet.HEIGHT*2);
@@ -32,9 +33,10 @@ public class MenuState extends State
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background, 0, 0, FastFeet.WIDTH, FastFeet.HEIGHT);
-        sb.draw(playButton, (FastFeet.WIDTH / 2) - (playButton.getWidth() / 2), (FastFeet.HEIGHT / 2) - (playButton.getHeight() / 2));
+        sb.draw(background, 0, 0, FastFeet.WIDTH*2, FastFeet.HEIGHT*2);
+        sb.draw(playButton, cam.position.x - (playButton.getWidth() / 2), cam.position.y - (playButton.getHeight() / 2));
         sb.end();
 
     }
