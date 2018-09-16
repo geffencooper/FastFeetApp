@@ -78,14 +78,14 @@ public class PlayState extends State {
 
             if(spikes.get(i).collides(runner.getBounds()))
             {
-                runner.stop();
-                System.out.println("spike x:" + spikes.get(i).getSpikePos().x + " spike y: " + spikes.get(i).getSpikePos().y);
-                System.out.println("runner x: " + runner.getPosition().x + " runner y: " + runner.getPosition().y);
-                System.out.println("spike height: " + spikes.get(i).getSpike().getHeight());
-                if(Gdx.input.justTouched())
-                {
+                //runner.stop();
+                //System.out.println("spike x:" + spikes.get(i).getSpikePos().x + " spike y: " + spikes.get(i).getSpikePos().y);
+                //System.out.println("runner x: " + runner.getPosition().x + " runner y: " + runner.getPosition().y);
+                //System.out.println("spike height: " + spikes.get(i).getSpike().getHeight());
+                //if(Gdx.input.justTouched())
+                //{
                     gsm.set(new PlayState(gsm));
-                }
+                //}
             }
         }
 
@@ -108,7 +108,7 @@ public class PlayState extends State {
 
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(Color.RED);
-        System.out.println("Position y: " + runner.getBounds().y);
+        //System.out.println("Position y: " + runner.getBounds().y);
         sr.rect(runner.getBounds().x, runner.getBounds().y, 50, 126);
         sr.rect(spikes.get(0).getSpikePos().x, spikes.get(0).getSpikePos().y, 50, 50);
         sr.end();

@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.geffencooper.fastfeet.FastFeet;
 
 public class Runner {
-    private /*static final*/ int GRAVITY = -15;
-    private /*static final*/ int MOVEMENT = 200;
+    private /*static final*/ int GRAVITY = -85;
+    private /*static final*/ int MOVEMENT = 800;
     private static final int NUMRUNSTATES = 4;
     private int currentRunState;
     private Vector3 position;
@@ -92,7 +92,7 @@ public class Runner {
 
     public void jump()
     {
-        velocity.y = 400;
+        velocity.y = 1000;
     }
 
     public Rectangle getBounds()
